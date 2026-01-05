@@ -16,11 +16,16 @@ class UserResponseDto {
 
 export class AuthResponseDto {
   @Expose()
-  access_token: string;
+  id: number;
 
   @Expose()
-  @Type(() => UserResponseDto)
-  user: UserResponseDto;
+  email: string;
+
+  @Expose()
+  name: string;
+
+  @Expose()
+  role: string;
 }
 
 export class RegisterResponseDto {

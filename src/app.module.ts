@@ -26,7 +26,7 @@ import configuration from './config/configuration';
         password: config.get<string>('database.password'),
         database: config.get<string>('database.database'),
         entities: [User, Loan],
-        synchronize: true, // Dev only
+        synchronize: true,
       }),
     }),
     AuthModule,
@@ -40,7 +40,6 @@ import configuration from './config/configuration';
       useValue: new ValidationPipe({
         whitelist: true,
         transform: true,
-        forbidNonWhitelisted: true,
       }),
     },
   ],

@@ -1,7 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { UserDto } from '../../users/dtos/user.dto';
 
-// Response DTO for loan - controls what gets sent back
 export class LoanDto {
   @Expose()
   id: number;

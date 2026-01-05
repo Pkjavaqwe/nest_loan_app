@@ -8,7 +8,6 @@ import { Role } from '../auth/enums/role.enum';
 @Controller('dashboard')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class DashboardController {
-  // Accessible by all authenticated users
   @Get()
   getGeneralDashboard(@CurrentUser() user: any) {
     return {
@@ -18,7 +17,6 @@ export class DashboardController {
     };
   }
 
-  // SALES role only
   @Get('sales')
   @Roles(Role.SALES)
   getSalesDashboard(@CurrentUser() user: any) {
@@ -34,7 +32,6 @@ export class DashboardController {
     };
   }
 
-  // CUSTOMER role only
   @Get('customer')
   @Roles(Role.CUSTOMER)
   getCustomerDashboard(@CurrentUser() user: any) {
@@ -50,7 +47,6 @@ export class DashboardController {
     };
   }
 
-  // FINANCER role only
   @Get('financer')
   @Roles(Role.FINANCER)
   getFinancerDashboard(@CurrentUser() user: any) {
@@ -66,7 +62,6 @@ export class DashboardController {
     };
   }
 
-  // Accessible by SALES and FINANCER only
   @Get('reports')
   @Roles(Role.SALES, Role.FINANCER)
   getReports(@CurrentUser() user: any) {

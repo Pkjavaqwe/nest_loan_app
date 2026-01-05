@@ -11,11 +11,10 @@ import { Serialize } from '../interceptors/serialize.interceptor';
 
 @Controller('loans')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Serialize(LoanDto) // Apply to all routes in this controller
+@Serialize(LoanDto)
 export class LoanController {
   constructor(private loanService: LoanService) {}
 
-  // Customer creates loan for self
   @Post('request')
   @Roles(Role.CUSTOMER)
   async customerRequestLoan(
@@ -25,7 +24,6 @@ export class LoanController {
     return this.loanService.createLoanRequest(createLoanDto, user.userId, user.role);
   }
 
-  // Sales creates loan on behalf of customer
   @Post('request-for-customer')
   @Roles(Role.SALES)
   async salesRequestLoan(
@@ -35,7 +33,6 @@ export class LoanController {
     return this.loanService.createLoanRequest(createLoanDto, user.userId, user.role);
   }
 
-  // Financer approves loan
   @Post(':id/approve')
   @Roles(Role.FINANCER)
   async approveLoan(
@@ -46,7 +43,6 @@ export class LoanController {
     return this.loanService.approveLoan(id, user.userId, processDto);
   }
 
-  // Financer rejects loan
   @Post(':id/reject')
   @Roles(Role.FINANCER)
   async rejectLoan(
@@ -57,28 +53,24 @@ export class LoanController {
     return this.loanService.rejectLoan(id, user.userId, processDto);
   }
 
-  // Financer views all loans
   @Get('all')
   @Roles(Role.FINANCER)
   async getAllLoans() {
     return this.loanService.findAll();
   }
 
-  // Financer views pending loans
   @Get('pending')
   @Roles(Role.FINANCER)
   async getPendingLoans() {
     return this.loanService.findPendingLoans();
   }
 
-  // Customer views their own loans
   @Get('my-loans')
   @Roles(Role.CUSTOMER)
   async getMyLoans(@CurrentUser() user: any) {
     return this.loanService.findByCustomerId(user.userId);
   }
 
-  // Sales views loans they requested
   @Get('my-requests')
   @Roles(Role.SALES)
   async getMyRequests(@CurrentUser() user: any) {

@@ -16,7 +16,6 @@ export class Loan {
   @Column({ type: 'enum', enum: LoanStatus, default: LoanStatus.PENDING })
   status: LoanStatus;
 
-  // The customer who needs the loan
   @ManyToOne(() => User)
   @JoinColumn({ name: 'customerId' })
   customer: User;
@@ -24,7 +23,6 @@ export class Loan {
   @Column()
   customerId: number;
 
-  // Who requested: could be customer themselves or a sales person
   @ManyToOne(() => User)
   @JoinColumn({ name: 'requestedById' })
   requestedBy: User;
@@ -32,7 +30,6 @@ export class Loan {
   @Column()
   requestedById: number;
 
-  // Financer who approved/rejected
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'processedById' })
   processedBy: User;

@@ -1,0 +1,361 @@
+{
+  "info": {
+    "name": "NestJS RBAC API",
+    "description": "API collection for NestJS RBAC POC with JWT and Cookie Session",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register - Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"customer@test.com\",\n  \"password\": \"password123\",\n  \"name\": \"Test Customer\",\n  \"role\": \"customer\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register - Sales",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sales@test.com\",\n  \"password\": \"password123\",\n  \"name\": \"Test Sales\",\n  \"role\": \"sales\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register - Financer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"financer@test.com\",\n  \"password\": \"password123\",\n  \"name\": \"Test Financer\",\n  \"role\": \"financer\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login - Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"customer@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login - Sales",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sales@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login - Financer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"financer@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "General Dashboard (All Authenticated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Sales Dashboard (Sales Only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/sales",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "sales"]
+            }
+          }
+        },
+        {
+          "name": "Customer Dashboard (Customer Only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/customer",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "customer"]
+            }
+          }
+        },
+        {
+          "name": "Financer Dashboard (Financer Only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/financer",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "financer"]
+            }
+          }
+        },
+        {
+          "name": "Reports (Sales & Financer)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/reports",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "reports"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Loans",
+      "item": [
+        {
+          "name": "Customer - Request Loan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 50000,\n  \"purpose\": \"Home renovation\",\n  \"customerId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/loans/request",
+              "host": ["{{baseUrl}}"],
+              "path": ["loans", "request"]
+            }
+          }
+        },
+        {
+          "name": "Sales - Request Loan for Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 100000,\n  \"purpose\": \"Business expansion\",\n  \"customerId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/loans/request-for-customer",
+              "host": ["{{baseUrl}}"],
+              "path": ["loans", "request-for-customer"]
+            }
+          }
+        },
+        {
+          "name": "Financer - Approve Loan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Approved based on credit score\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/loans/1/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["loans", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Financer - Reject Loan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Insufficient credit history\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/loans/1/reject",
+              "host": ["{{baseUrl}}"],
+              "path": ["loans", "1", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Financer - Get All Loans",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/loans/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["loans", "all"]
+            }
+          }
+        },
+        {
+          "name": "Financer - Get Pending Loans",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/loans/pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["loans", "pending"]
+            }
+          }
+        },
+        {
+          "name": "Customer - Get My Loans",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/loans/my-loans",
+              "host": ["{{baseUrl}}"],
+              "path": ["loans", "my-loans"]
+            }
+          }
+        },
+        {
+          "name": "Sales - Get My Requests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/loans/my-requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["loans", "my-requests"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@ export class User {
   email: string;
 
   @Column()
-  @Exclude() // Never expose password in responses
+  @Exclude()
   password: string;
 
   @Column()
@@ -23,7 +23,6 @@ export class User {
   @CreateDateColumn()
   createdAt: Date;
 
-  // Lifecycle hooks for logging (Grider pattern)
   @AfterInsert()
   logInsert() {
     console.log('Inserted User with id:', this.id);

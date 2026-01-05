@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { plainToInstance } from 'class-transformer';
 
-// Custom decorator to specify which DTO to serialize response with
 interface ClassConstructor {
   new (...args: any[]): {};
 }
@@ -17,7 +16,6 @@ export function Serialize(dto: ClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
-// Interceptor that transforms response using class-transformer
 export class SerializeInterceptor implements NestInterceptor {
   constructor(private dto: ClassConstructor) {}
 
@@ -25,7 +23,7 @@ export class SerializeInterceptor implements NestInterceptor {
     return handler.handle().pipe(
       map((data: any) => {
         return plainToInstance(this.dto, data, {
-          excludeExtraneousValues: true, // Only include @Expose() properties
+          excludeExtraneousValues: true,
         });
       }),
     );

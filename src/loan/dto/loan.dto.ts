@@ -10,7 +10,7 @@ export class CreateLoanDto {
   purpose?: string;
 
   @IsNumber()
-  customerId: number; // Required when sales creates on behalf of customer
+  customerId: number;
 }
 
 export class ProcessLoanDto {

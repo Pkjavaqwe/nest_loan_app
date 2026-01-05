@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Headers, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Session, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
 import { AuthResponseDto, RegisterResponseDto } from './dto/auth-response.dto';
@@ -17,14 +17,18 @@ export class AuthController {
 
   @Post('login')
   @Serialize(AuthResponseDto)
-  login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+  async login(@Body() loginDto: LoginDto, @Session() session: any) {
+    const result = await this.authService.login(loginDto);
+    session.jwt = result.access_token;
+    session.userId = result.user.id;
+    return result.user;
   }
 
   @Post('logout')
   @UseGuards(JwtAuthGuard)
-  logout(@Headers('authorization') authHeader: string) {
-    const token = authHeader?.replace('Bearer ', '');
-    return this.authService.logout(token);
+  logout(@Session() session: any) {
+    session.jwt = null;
+    session.userId = null;
+    return { message: 'Logged out successfully' };
   }
 }
