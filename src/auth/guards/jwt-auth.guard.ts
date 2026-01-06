@@ -1,6 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { PUBLIC_ROUTES } from '../../config/public-routes';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -11,6 +12,10 @@ export class JwtAuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
+
+    if (PUBLIC_ROUTES.includes(request.path)) {
+      return true;
+    }
     
     let token = request.session?.jwt;
     
@@ -22,12 +27,12 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     if (!token) {
-      throw new UnauthorizedException('No token provided');
+      throw new UnauthorizedException('No token provided please login first');
     }
 
     try {
       const payload = this.jwtService.verify(token, {
-        secret: this.configService.get<string>('jwt.secret'),
+        secret: this.configService.get<string>('JWT_SECRET'),
       });
       request.user = { userId: payload.sub, email: payload.email, role: payload.role };
       return true;

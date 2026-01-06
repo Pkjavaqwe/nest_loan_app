@@ -1,12 +1,11 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../auth/guards/roles.guard';
-import { Roles } from '../auth/decorators/roles.decorator';
+import { RoleGuard } from '../auth/guards/roles.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Role } from '../auth/enums/role.enum';
 
 @Controller('dashboard')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard)
 export class DashboardController {
   @Get()
   getGeneralDashboard(@CurrentUser() user: any) {
@@ -18,7 +17,7 @@ export class DashboardController {
   }
 
   @Get('sales')
-  @Roles(Role.SALES)
+  @UseGuards(RoleGuard(Role.SALES))
   getSalesDashboard(@CurrentUser() user: any) {
     return {
       message: 'Sales Dashboard',
@@ -33,7 +32,7 @@ export class DashboardController {
   }
 
   @Get('customer')
-  @Roles(Role.CUSTOMER)
+  @UseGuards(RoleGuard(Role.CUSTOMER))
   getCustomerDashboard(@CurrentUser() user: any) {
     return {
       message: 'Customer Dashboard',
@@ -48,7 +47,7 @@ export class DashboardController {
   }
 
   @Get('financer')
-  @Roles(Role.FINANCER)
+  @UseGuards(RoleGuard(Role.FINANCER))
   getFinancerDashboard(@CurrentUser() user: any) {
     return {
       message: 'Finance Dashboard',
@@ -63,7 +62,7 @@ export class DashboardController {
   }
 
   @Get('reports')
-  @Roles(Role.SALES, Role.FINANCER)
+  @UseGuards(RoleGuard(Role.SALES, Role.FINANCER))
   getReports(@CurrentUser() user: any) {
     return {
       message: 'Reports - Accessible by Sales and Finance',
