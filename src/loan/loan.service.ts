@@ -65,7 +65,7 @@ export class LoanService {
     const loan = await this.findLoanById(loanId);
 
     if (loan.status !== LoanStatus.PENDING) {
-      throw new BadRequestException('Loan has already been processed');
+      throw new BadRequestException('Loan has already been processed ');
     }
 
     loan.status = LoanStatus.REJECTED;

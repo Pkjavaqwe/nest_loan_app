@@ -8,7 +8,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { LoanModule } from './loan/loan.module';
 import { User } from './users/user.entity';
 import { Loan } from './loan/loan.entity';
+import { DatabaseServiceService } from './database-service/database-service.service';
 import configuration from './config/configuration';
+import { ReleaseResourceServiceService } from './database-service/Release-resources.service';
 
 @Module({
   imports: [
@@ -35,6 +37,7 @@ import configuration from './config/configuration';
     LoanModule,
   ],
   providers: [
+    DatabaseServiceService,
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe({
@@ -42,6 +45,7 @@ import configuration from './config/configuration';
         transform: true,
       }),
     },
+    ReleaseResourceServiceService
   ],
 })
 export class AppModule {}

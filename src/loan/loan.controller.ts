@@ -9,7 +9,7 @@ import { Role } from '../auth/enums/role.enum';
 import { Serialize } from '../interceptors/serialize.interceptor';
 
 @Controller('loans')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Serialize(LoanDto)
 export class LoanController {
   constructor(private loanService: LoanService) {}
